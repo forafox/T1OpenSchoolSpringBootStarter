@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("maven-publish")
     id("org.springframework.boot") version "3.3.0"
     id("io.spring.dependency-management") version "1.1.4"
 }
@@ -21,6 +22,18 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "com.forafox"
+                artifactId = "t1-open-school-spring-boot-starter"
+                version = "1.0"
+            }
+        }
+    }
 }
 
 tasks.test {
