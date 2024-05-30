@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class HttpLoggingFilter extends OncePerRequestFilter {
 
@@ -32,9 +34,21 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
             long duration = System.currentTimeMillis() - startTime;
             logger.info("HTTP {} - {} - {} - {}ms", request.getMethod(), request.getRequestURI(), response.getStatus(), duration);
             if (properties.isLogHeaders()) {
-                logger.info("Request Headers: {}", request.getHeaderNames());
-                logger.info("Response Headers: {}", response.getHeaderNames());
+                logger.info("Request Headers: {}", getHeaders(request));
+                logger.info("Response Headers: {}", getHeaders(response));
             }
         }
+    }
+
+    private String getHeaders(HttpServletRequest request) {
+        return Collections.list(request.getHeaderNames()).stream()
+                .map(headerName -> headerName + ": " + Collections.list(request.getHeaders(headerName)))
+                .collect(Collectors.joining(", "));
+    }
+
+    private String getHeaders(HttpServletResponse response) {
+        return response.getHeaderNames().stream()
+                .map(headerName -> headerName + ": " + response.getHeaders(headerName))
+                .collect(Collectors.joining(", "));
     }
 }
