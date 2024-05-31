@@ -24,17 +24,29 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = "com.forafox"
-                artifactId = "t1-open-school-spring-boot-starter"
-                version = "1.0"
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.forafox"
+            artifactId = "t1-open-school-spring-boot-starter"
+            version = "1.0"
+            from(components["java"])
+            // Укажите минимальную версию
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("implementation")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
             }
         }
     }
+    repositories {
+        mavenLocal()
+    }
 }
+
 
 tasks.test {
     useJUnitPlatform()

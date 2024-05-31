@@ -1,2 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.forafox.logging.config.HttpLoggingAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.forafox.logging.config.HttpLoggingAutoConfiguration
