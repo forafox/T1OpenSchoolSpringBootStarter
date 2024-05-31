@@ -49,18 +49,16 @@ dependencies {
 #### Пример конфигурации в `application.yml`
 
 ```yaml
-logging:
-  http:
-    enabled: true
 http:
   logging:
+    enabled: true
     log-headers: true
 ```
 
 #### Пример конфигурации в `application.properties`
 
 ```properties
-logging.http.enabled=true
+http.logging.enabled=true
 http.logging.log-headers=true
 ```
 
