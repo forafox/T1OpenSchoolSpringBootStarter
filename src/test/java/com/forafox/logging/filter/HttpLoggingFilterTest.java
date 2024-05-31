@@ -17,8 +17,6 @@ import static org.mockito.Mockito.*;
 
 class HttpLoggingFilterTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpLoggingFilterTest.class);
-
     @Mock
     private FilterChain filterChain;
 
